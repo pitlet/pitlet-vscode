@@ -1,0 +1,37 @@
+{
+  "name": "prettier-vscode",
+  "displayName": "Prettier - Code formatter",
+  "description": "Code formatter using prettier",
+  "publisher": "SimonSiefke",
+  "version": "1.0.1",
+  "galleryBanner": {
+    "color": "#ffe04b",
+    "theme": "light"
+  },
+  "engines": {
+    "vscode": "^1.30.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
+  "keywords": [
+    "multi-root ready"
+  ],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./dist/extensionMain.js",
+  "devDependencies": {
+    "@types/vscode": "^1.43.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "source-map-support": "^0.5.16",
+    "vscode-languageclient": "^6.1.3"
+  }
+}
