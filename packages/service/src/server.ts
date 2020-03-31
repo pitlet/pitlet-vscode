@@ -38,7 +38,7 @@ export const createDevServer = async ({
   if (!fs.existsSync(configPath)) {
     return
   }
-  const config = await require(configPath)
+  const config = await eval('require')(configPath)
   const { transformFunctionMap, alias, entryPath } = config
   const transform = createTransform({ transformFunctionMap })
   const entry = {
