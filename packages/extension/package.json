@@ -1,9 +1,9 @@
 {
-  "name": "prettier-vscode",
-  "displayName": "Prettier - Code formatter",
-  "description": "Code formatter using prettier",
+  "name": "pitlet-vscode",
+  "displayName": "Pitlet",
+  "description": "Pitlet for VSCode",
   "publisher": "SimonSiefke",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "galleryBanner": {
     "color": "#ffe04b",
     "theme": "light"
@@ -12,12 +12,9 @@
     "vscode": "^1.30.0"
   },
   "categories": [
-    "Programming Languages",
-    "Formatters"
+    "Programming Languages"
   ],
-  "keywords": [
-    "multi-root ready"
-  ],
+  "keywords": [],
   "extensionKind": [
     "ui",
     "workspace"
