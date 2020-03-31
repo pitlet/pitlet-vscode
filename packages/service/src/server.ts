@@ -34,7 +34,11 @@ export const createDevServer = async ({
 }: {
   workspaceFolder: string
 }) => {
-  const config = await require(workspaceFolder + '/bsp.config.js')
+  const configPath = workspaceFolder + '/pitlet.config.js'
+  if (!fs.existsSync(configPath)) {
+    return
+  }
+  const config = await require(configPath)
   const { transformFunctionMap, alias, entryPath } = config
   const transform = createTransform({ transformFunctionMap })
   const entry = {
