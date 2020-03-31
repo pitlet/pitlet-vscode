@@ -1,16 +1,16 @@
 
-const { transformCss } = require('../../../../../bundler3/packages/transform/transform-css/dist/transformCss')
+// const { transformCss } = require('../../../../../bundler3/packages/transform/transform-css/dist/transformCss')
 const {
   transformJsModule,
-} = require('../../../../../bundler3/packages/transform/transform-js-module/dist/transformJsModule')
+} = require('@pitlet/transform-js-module')
 const {
   transformReact
-} = require('../../../../../bundler3/packages/transform/transform-react/dist/transformReact')
+} = require('@pitlet/transform-react')
 const path = require('path')
 
 const transformFunctionMap = {
   js: [transformReact, transformJsModule],
-  css: [transformCss],
+  // css: [transformCss],
 }
 
 module.exports = {
