@@ -1,11 +1,7 @@
 import * as http from 'http'
 import * as WebSocket from 'ws'
-import { createTransform } from '../../../../bundler3/packages/core/dist/index'
-import {
-  collectAssets,
-  nodeBundler,
-} from '../../../../bundler3/packages/core/dist/index'
-import { packageJs } from '../../../../bundler3/packages/package/package-js/dist/packageJs'
+import { createTransform, collectAssets, nodeBundler } from '@pitlet/core'
+import { packageJs } from '@pitlet/package-js'
 import * as fs from 'fs'
 import * as serveStatic from 'serve-static'
 

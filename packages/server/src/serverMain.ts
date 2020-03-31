@@ -3,6 +3,7 @@ import {
   TextDocumentSyncKind,
   ServerRequestHandler,
   RequestType,
+  NotificationType,
 } from 'vscode-languageserver'
 import { documents } from './documents'
 import {
@@ -36,7 +37,9 @@ connection.onInitialized(async () => {
   console.log(workspaceFolder)
   const devServer = await createDevServer({ workspaceFolder })
   await devServer.listen(3000)
-
+  // connection.window.showInformationMessage(
+  //   'Sever started on http://localhost:3000',
+  // ) // TODO why doesn't this work
   documents.onDidChangeContent(async event => {
     const id = event.document.uri.slice(7)
     const type = getType(id)
