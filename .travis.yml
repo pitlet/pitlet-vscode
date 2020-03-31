@@ -14,11 +14,15 @@ install:
     fi
 
 stages:
+  - test
   - name: release
     if: branch = master AND type = push AND fork = false
 
 jobs:
   include:
+    - stage: test
+      script:
+        - npm run package
     - stage: release
       script:
         - npm run publish
