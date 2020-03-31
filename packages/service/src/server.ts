@@ -39,12 +39,12 @@ export const createDevServer = async ({
   workspaceFolder: string
 }) => {
   const config = await require(workspaceFolder + '/bsp.config.js')
-  const { transformFunctionMap, alias } = config
+  const { transformFunctionMap, alias, entryPath } = config
   const transform = createTransform({ transformFunctionMap })
   const entry = {
     protocol: 'filesystem',
     meta: {
-      id: `${workspaceFolder}/src/index.js`,
+      id: entryPath || `${workspaceFolder}/src/index.js`,
     },
   }
   nodeBundler.resolve = (importee, importer) => {
