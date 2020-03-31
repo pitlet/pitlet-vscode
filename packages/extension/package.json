@@ -22,6 +22,14 @@
   "activationEvents": [
     "*"
   ],
+  "homepage": "https://github.com/pitlet/pitlet-vscode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pitlet/pitlet-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pitlet/pitlet-vscode/issues"
+  },
   "main": "./dist/extensionMain.js",
   "devDependencies": {
     "@types/vscode": "^1.43.0",
