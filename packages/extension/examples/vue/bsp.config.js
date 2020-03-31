@@ -1,23 +1,23 @@
 
-const { transformCss } = require('../../../../../bundler3/packages/transform/transform-css/dist/transformCss')
+// const { transformCss } = require('../../../../../bundler3/packages/transform/transform-css/dist/transformCss')
 const {
   transformJsModule,
-} = require('../../../../../bundler3/packages/transform/transform-js-module/dist/transformJsModule')
+} = require('@pitlet/transform-js-module')
 const {
   transformVue,
   transformVuePostTransformBlock,
   transformVueStyle,
   transformVueTemplate,
-} = require('../../../../../bundler3/packages/transform/transform-vue/dist/index')
+} = require('@pitlet/transform-vue')
 const path = require('path')
 
 const transformFunctionMap = {
   vue: [transformVue, transformJsModule],
   'vue-html': [transformVueTemplate, transformJsModule],
   'vue-js': [transformJsModule, transformVuePostTransformBlock],
-  'vue-css': [transformCss, transformVueStyle, transformVuePostTransformBlock],
+  // 'vue-css': [transformCss, transformVueStyle, transformVuePostTransformBlock],
   js: [transformJsModule],
-  css: [transformCss],
+  // css: [transformCss],
 }
 
 module.exports = {
