@@ -1,4 +1,4 @@
-# Pitlet VSCode
+# Pitlet VSCode (wip)
 
 ![demo](./demo.gif)
 
