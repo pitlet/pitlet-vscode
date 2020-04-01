@@ -4,6 +4,9 @@ import { LocalPlugin } from '../pluginApi'
 import { createLanguageClientProxy } from './createLanguageClientProxy'
 
 export const localPluginFormatting: LocalPlugin = async context => {
+  if (!vscode.workspace.workspaceFolders) {
+    return
+  }
   const languageClientProxy = await createLanguageClientProxy(
     context,
     'bsp',
