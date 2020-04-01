@@ -9,8 +9,8 @@ export const localPluginFormatting: LocalPlugin = async context => {
   }
   const languageClientProxy = await createLanguageClientProxy(
     context,
-    'bsp',
-    'Bsp',
+    'pitlet',
+    'Pitlet',
     {
       documentSelector: [
         {
