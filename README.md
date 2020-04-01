@@ -20,4 +20,4 @@
 ## Troubleshooting
 
 - Make sure that you have installed the latest VSCode version
-- Check the logging output of `Pitlet` (`Ctrl + Shift + P`, `Output: Focus on Output View`, then select `Pitlet`)
+- Check the logging output (`Ctrl + Shift + P`, `Output: Focus on Output View`, then select `Pitlet`)
