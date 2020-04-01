@@ -16,3 +16,8 @@
 1. Open a pitlet project that contains a `pitlet.config.js` file
 2. The development server will automatically start on `http://localhost:3000`
 3. Have fun :)
+
+## Troubleshooting
+
+- Make sure that you have installed the latest VSCode version
+- Check the logging output of `Pitlet` (`Ctrl + Shift + P`, `Output: Focus on Output View`, then select `Pitlet`)
