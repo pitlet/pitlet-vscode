@@ -1,4 +1,6 @@
-# Pitlet VSCode (wip)
+[![travis build](https://img.shields.io/travis/com/SimonSiefke/pitlet-vscode.svg)](https://travis-ci.com/SimonSiefke/pitlet-vscode) [![Version](https://vsmarketplacebadge.apphb.com/version/SimonSiefke.pitlet-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=SimonSiefke.pitlet-vscode)
+
+# Pitlet VSCode
 
 ![demo](./demo.gif)
 
@@ -8,8 +10,8 @@
 
 ## Examples
 
-- [Vue](./packages/extension/examples/vue)
-- [React](./packages/extension/examples/react)
+- [Vue](https://github.com/pitlet/pitlet-examples/tree/master/vue)
+- [React](https://github.com/pitlet/pitlet-examples/tree/master/react)
 
 ## Usage
 
