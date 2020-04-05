@@ -41,7 +41,7 @@ export const createDevServer = async ({
     },
   }
   nodeBundler.resolve = (importee, importer) => {
-    if (importee in alias) {
+    if (alias && importee in alias) {
       return alias[importee]
     }
     return originalResolve(importee, importer)

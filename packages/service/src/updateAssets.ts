@@ -151,7 +151,7 @@ export const getHmrUpdates: (
           // console.log(JSON.stringify(transformed, null, 2))
           if (!hasSameDependencies(oldAsset, transformed)) {
             const addedDependencies = []
-            const deletedDependencies = new Set()
+            const deletedDependencies = new Set<string>()
             const oldDependencies: readonly string[] =
               oldAsset.meta.directDependencies
             const newDependencies: readonly string[] = transformed.meta.directDependencies.map(
@@ -187,10 +187,14 @@ export const getHmrUpdates: (
               dependencyMap[oldAsset.meta.directDependencies[i]] =
                 oldAsset.meta.resolvedDirectDependencies[i]
             }
+            for (const deletedDependency of deletedDependencies) {
+              delete dependencyMap[deletedDependency]
+            }
             for (const addedDependency of addedDependencies) {
               dependencyMap[addedDependency.dependency] =
                 addedDependency.resolved
             }
+            // oldAsset.dependencyMap = dependencyMap
             updates.unshift({
               type: 'UPDATE_MODULE_DEPENDENCIES',
               payload: {
