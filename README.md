@@ -1,4 +1,4 @@
-[![travis build](https://img.shields.io/travis/com/SimonSiefke/pitlet-vscode.svg)](https://travis-ci.com/SimonSiefke/pitlet-vscode) [![Version](https://vsmarketplacebadge.apphb.com/version/SimonSiefke.pitlet-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=SimonSiefke.pitlet-vscode)
+[![travis build](https://img.shields.io/travis/com/pitlet/pitlet-vscode.svg)](https://travis-ci.com/pitlet/pitlet-vscode) [![Version](https://vsmarketplacebadge.apphb.com/version/SimonSiefke.pitlet-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=SimonSiefke.pitlet-vscode)
 
 # Pitlet VSCode
 
