@@ -5,7 +5,7 @@ const {
   transformVuePostTransformBlock,
   transformVueStyle,
   transformVueTemplate,
-} = require('@pitlet/transform-vue')
+} = require('../../../../../bundler3/packages/transform/transform-vue/dist/index')
 const path = require('path')
 
 const transformFunctionMap = {

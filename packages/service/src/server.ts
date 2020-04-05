@@ -1,29 +1,19 @@
 import * as http from 'http'
 import * as WebSocket from 'ws'
 import { createTransform, collectAssets, nodeBundler } from '@pitlet/core'
-import { packageJs } from '@pitlet/package-js'
+// import { packageJs } from '@pitlet/package-js'
+import { packageJs } from '../../../../bundler3/packages/package/package-js/dist/packageJs'
 import * as fs from 'fs'
 import * as serveStatic from 'serve-static'
+import { measureStart, measureEnd } from './measure'
+import { getHmrUpdates, FileWatcherEvent } from './updateAssets'
 
 const html = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
 </head>
 <body>
-  <script>
-  const webSocket = new WebSocket('ws://localhost:3000')
-  webSocket.onmessage = ({data})=>{
-    const {command, payload} = JSON.parse(data)
-    switch (command) {
-      case 'eval':
-        eval(payload)
-        break;
-      default:
-        break;
-    }
-  }
-  console.log(webSocket)
-  </script>
+
 </body>
 `
 
@@ -38,7 +28,10 @@ export const createDevServer = async ({
   if (!fs.existsSync(configPath)) {
     return
   }
+  measureStart('require config')
   const config = await eval('require')(configPath)
+  measureEnd('require config')
+  measureStart('bundling')
   const { transformFunctionMap, alias, entryPath } = config
   const transform = createTransform({ transformFunctionMap })
   const entry = {
@@ -53,13 +46,17 @@ export const createDevServer = async ({
     }
     return originalResolve(importee, importer)
   }
+  measureStart('collect assets')
   const assets = await collectAssets({
     bundler: nodeBundler,
     transform,
     entry,
   })
+  measureEnd('collect assets')
   const operations = await packageJs(assets, workspaceFolder, entry.meta.id)
 
+  measureEnd('bundling')
+  measureStart('writing to disk')
   const distFolder = `${workspaceFolder}/dist`
   if (!fs.existsSync(distFolder)) {
     fs.mkdirSync(distFolder)
@@ -90,6 +87,7 @@ export const createDevServer = async ({
         break
     }
   }
+  measureEnd('writing to disk')
   const serve = serveStatic(distFolder)
   const server = http.createServer((request, response) => {
     // @ts-ignore
@@ -101,9 +99,7 @@ export const createDevServer = async ({
     // indexHtml.pipe(response, { end: true })
   })
   const webSocketServer = new WebSocket.Server({ server })
-  const webSockets = new Set<WebSocket>()
   webSocketServer.on('connection', webSocket => {
-    webSockets.add(webSocket)
     console.log('opened websocket')
     webSocket.on('open', () => {})
   })
@@ -111,31 +107,10 @@ export const createDevServer = async ({
   return {
     listen: (port: number) =>
       new Promise<void>(resolve => server.listen(port, resolve)),
-    update: async (assets: any[]) => {
-      console.log('update')
-      const transformedAssets = await Promise.all(assets.map(transform))
-      const transformedDependencies = (
-        await Promise.all(
-          transformedAssets.map(transformed =>
-            Promise.all(
-              transformed.meta.directDependencies
-                .filter(
-                  (directDependency: any) =>
-                    directDependency.protocol === 'virtual',
-                )
-                .map(transform),
-            ),
-          ),
-        )
-      ).flat()
-      console.log(JSON.stringify(transformedDependencies, null, 2))
-      const message = JSON.stringify({
-        command: 'update',
-        payload: {
-          transformedAssets: [...transformedAssets, ...transformedDependencies],
-        },
-      })
-      for (const webSocket of webSockets) {
+    update: async (fileWatcherEvents: readonly FileWatcherEvent[]) => {
+      const updates = await getHmrUpdates(assets, fileWatcherEvents, transform)
+      const message = JSON.stringify(updates)
+      for (const webSocket of webSocketServer.clients) {
         webSocket.send(message)
       }
     },

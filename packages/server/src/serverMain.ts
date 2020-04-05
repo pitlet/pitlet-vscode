@@ -11,6 +11,7 @@ import {
   handleError,
 } from './errorHandlingAndLogging'
 import { createDevServer } from 'service'
+import { FileWatcherEvent } from 'service/src/updateAssets'
 const connection = createConnection()
 
 enableBetterErrorHandlingAndLogging(connection)
@@ -44,19 +45,13 @@ connection.onInitialized(async () => {
   //   'Sever started on http://localhost:3000',
   // ) // TODO why doesn't this work
   documents.onDidChangeContent(async event => {
-    const id = event.document.uri.slice(7)
-    const type = getType(id)
-    const asset = {
-      protocol: 'virtual',
-      meta: {
-        id,
-        type,
-        content: event.document.getText(),
-      },
+    const absolutePath = event.document.uri.slice(7)
+    const fileWatcherEvent: FileWatcherEvent = {
+      type: 'UPDATE',
+      absolutePath,
+      content: event.document.getText(),
     }
-    console.log(id)
-    console.log('changed document')
-    devServer.update([asset])
+    devServer.update([fileWatcherEvent])
   })
 
   documents.onDidOpen(() => {
