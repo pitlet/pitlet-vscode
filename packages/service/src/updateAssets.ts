@@ -93,11 +93,13 @@ export const getHmrUpdates: (
   oldAssets: readonly any[], // TODO hashmap would be better {id: asset}
   fileWatcherUpdates: readonly FileWatcherEvent[],
   transform: (asset: any) => Promise<any>,
+  resolve: (importee: string, importer: string) => Promise<string>,
   asset?: any,
 ) => Promise<readonly HMR_UPDATE[]> = async (
   oldAssets,
   fileWatcherUpdates,
   transform,
+  resolve,
   asset = undefined,
 ) => {
   const updates: HMR_UPDATE[] = []
@@ -148,14 +150,54 @@ export const getHmrUpdates: (
           // console.log(JSON.stringify(oldAsset, null, 2))
           // console.log(JSON.stringify(transformed, null, 2))
           if (!hasSameDependencies(oldAsset, transformed)) {
-            updates.push({
+            const addedDependencies = []
+            const deletedDependencies = new Set()
+            const oldDependencies: readonly string[] =
+              oldAsset.meta.directDependencies
+            const newDependencies: readonly string[] = transformed.meta.directDependencies.map(
+              (x: any) => x.meta.importee,
+            )
+            const minLength = Math.min(
+              oldDependencies.length,
+              newDependencies.length,
+            )
+            // TODO better diff function
+            // for(let i=0;i< minLength;i++){
+            //   const oldDependency = oldDependencies[i]
+            //   const newDependency = newDependencies[i]
+            //   if(oldDependency.meta.importee !== newDependency.meta.importee){
+
+            //   }
+            // }
+
+            // TODO this whole thing should be optimized
+            for (let i = minLength; i < oldDependencies.length; i++) {
+              const oldDependency = oldDependencies[i]
+              deletedDependencies.add(oldDependency)
+            }
+            for (let i = 0; i < newDependencies.length; i++) {
+              const newDependency = newDependencies[i]
+              addedDependencies.push({
+                dependency: newDependency,
+                resolved: await resolve(newDependency, transformed.meta.id),
+              })
+            }
+            const dependencyMap = Object.create(null) // TODO optimize by reusing old asset dependencymap instead of loop
+            for (let i = 0; i < oldAsset.meta.directDependencies.length; i++) {
+              dependencyMap[oldAsset.meta.directDependencies[i]] =
+                oldAsset.meta.resolvedDirectDependencies[i]
+            }
+            for (const addedDependency of addedDependencies) {
+              dependencyMap[addedDependency.dependency] =
+                addedDependency.resolved
+            }
+            updates.unshift({
               type: 'UPDATE_MODULE_DEPENDENCIES',
               payload: {
                 id: fileWatcherUpdate.absolutePath,
-                dependencyMap: {},
+                dependencyMap,
               },
             })
-            // TODO check dependencies
           }
           for (let i = 0; i < oldAsset.meta.directDependencies.length; i++) {
             const oldDependency = oldAsset.meta.directDependencies[i]
@@ -175,6 +217,7 @@ export const getHmrUpdates: (
                   oldAssets,
                   [fileWatcherUpdate],
                   transform,
+                  resolve,
                   newDependency,
                 )
                 updates.push(...dependencyUpdates)

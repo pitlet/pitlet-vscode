@@ -1,9 +1,6 @@
 <template>
-hello world..........
-
-
+hello this works now better
 </template>
-
 <script>
 import {ref} from 'vue'
 export default {

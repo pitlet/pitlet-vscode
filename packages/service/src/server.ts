@@ -108,10 +108,17 @@ export const createDevServer = async ({
     listen: (port: number) =>
       new Promise<void>(resolve => server.listen(port, resolve)),
     update: async (fileWatcherEvents: readonly FileWatcherEvent[]) => {
-      const updates = await getHmrUpdates(assets, fileWatcherEvents, transform)
-      const message = JSON.stringify(updates)
-      for (const webSocket of webSocketServer.clients) {
-        webSocket.send(message)
+      const updates = await getHmrUpdates(
+        assets,
+        fileWatcherEvents,
+        transform,
+        nodeBundler.resolve,
+      )
+      if (updates.length > 0) {
+        const message = JSON.stringify(updates)
+        for (const webSocket of webSocketServer.clients) {
+          webSocket.send(message)
+        }
       }
     },
   }
