@@ -9,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@pitlet/transform-js-module": "^1.0.1",
+    "@pitlet/transform-ts-with-babel": "^1.0.1"
+  }
 }

@@ -38,3 +38,19 @@ import { a } from 'a'
 <!-- TODO test if it works when changing prettierrc -->
 
 <!-- TODO support virtual file systems, e.g. memfs -->
+
+<!-- TODO snippets
+e.g  react => creates a minimal react config
+     vue => creates a minimal vue config
+     react-ts => creates a minimal react config with typescript
+     (should typescript be the default??)
+ -->
+
+ <!-- TODO fix sourcemaps -->
+
+<!-- TODO remove logs once stable -->
+
+<!-- TODO add tests
+lots of tests...
+
+ -->
