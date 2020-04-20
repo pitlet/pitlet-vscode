@@ -6,7 +6,7 @@
     {
       "type": "npm",
       "script": "dev",
-      "problemMatcher": "$tsc-watch",
+      // "problemMatcher": "$tsc-watch",
       "isBackground": true,
       "presentation": {
         "reveal": "never"

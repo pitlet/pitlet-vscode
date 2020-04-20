@@ -15,8 +15,8 @@
         "--disable-extensions",
         "${workspaceFolder}/packages/extension/playground"
       ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
+      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"]
+      // "preLaunchTask": "${defaultBuildTask}"
     },
     {
       "name": "Run Example (Vue)",
