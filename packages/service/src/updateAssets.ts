@@ -80,10 +80,10 @@ const NO_HMR_UPDATES: readonly HMR_UPDATE[] = []
 
 const hasSameDependencies = (assetA: any, assetB: any) =>
   JSON.stringify(
-    assetA.meta.directDependencies.map((x: any) => x.meta.importee),
+    assetA.meta.directDependencies.map((x: any) => x.meta.importee)
   ) ===
   JSON.stringify(
-    assetB.meta.directDependencies.map((x: any) => x.meta.importee),
+    assetB.meta.directDependencies.map((x: any) => x.meta.importee)
   )
 
 const hasSameContent = (assetA: any, assetB: any) =>
@@ -94,13 +94,13 @@ export const getHmrUpdates: (
   fileWatcherUpdates: readonly FileWatcherEvent[],
   transform: (asset: any) => Promise<any>,
   resolve: (importee: string, importer: string) => Promise<string>,
-  asset?: any,
+  asset?: any
 ) => Promise<readonly HMR_UPDATE[]> = async (
   oldAssets,
   fileWatcherUpdates,
   transform,
   resolve,
-  asset = undefined,
+  asset = undefined
 ) => {
   const updates: HMR_UPDATE[] = []
   for (const fileWatcherUpdate of fileWatcherUpdates) {
@@ -125,19 +125,26 @@ export const getHmrUpdates: (
         break
       }
       case 'UPDATE': {
-        if (oldAssets.find(o => o.meta.id === fileWatcherUpdate.absolutePath)) {
+        if (
+          oldAssets.find((o) => o.meta.id === fileWatcherUpdate.absolutePath)
+        ) {
           const oldAsset = oldAssets.find(
-            o => o.meta.id === fileWatcherUpdate.absolutePath,
+            (o) => o.meta.id === fileWatcherUpdate.absolutePath
           )
-          const transformed = await transform(
-            asset || {
-              protocol: 'virtual',
-              meta: {
-                id: fileWatcherUpdate.absolutePath,
-                content: fileWatcherUpdate.content,
-              },
-            },
-          )
+          let transformed: any
+          try {
+            transformed = await transform(
+              asset || {
+                protocol: 'virtual',
+                meta: {
+                  id: fileWatcherUpdate.absolutePath,
+                  content: fileWatcherUpdate.content,
+                },
+              }
+            )
+          } catch (error) {
+            return []
+          }
           if (!hasSameContent(oldAsset, transformed)) {
             updates.push({
               type: 'UPDATE_MODULE_CONTENT',
@@ -147,6 +154,7 @@ export const getHmrUpdates: (
               },
             })
           }
+
           // console.log(JSON.stringify(oldAsset, null, 2))
           // console.log(JSON.stringify(transformed, null, 2))
           if (!hasSameDependencies(oldAsset, transformed)) {
@@ -155,11 +163,11 @@ export const getHmrUpdates: (
             const oldDependencies: readonly string[] =
               oldAsset.meta.directDependencies
             const newDependencies: readonly string[] = transformed.meta.directDependencies.map(
-              (x: any) => x.meta.importee,
+              (x: any) => x.meta.importee
             )
             const minLength = Math.min(
               oldDependencies.length,
-              newDependencies.length,
+              newDependencies.length
             )
             // TODO better diff function
             // for(let i=0;i< minLength;i++){
@@ -222,7 +230,7 @@ export const getHmrUpdates: (
                   [fileWatcherUpdate],
                   transform,
                   resolve,
-                  newDependency,
+                  newDependency
                 )
                 updates.push(...dependencyUpdates)
               }
