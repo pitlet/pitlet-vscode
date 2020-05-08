@@ -46,8 +46,8 @@ connection.onInitialized(async () => {
   //   'Sever started on http://localhost:3000',
   // ) // TODO why doesn't this work
   documents.onDidChangeContent(async (event) => {
-    console.log(`CONTENT CHANGE ${absolutePath}`)
     const absolutePath = event.document.uri.slice(7)
+    console.log(`CONTENT CHANGE ${absolutePath}`)
     const fileWatcherEvent: FileWatcherEvent = {
       type: 'UPDATE',
       absolutePath,
