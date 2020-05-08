@@ -19,58 +19,6 @@
       // "preLaunchTask": "${defaultBuildTask}"
     },
     {
-      "name": "Run Example (Vue)",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
-        "--disable-extensions",
-        "${workspaceFolder}/packages/extension/examples/vue"
-      ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
-    },
-    {
-      "name": "Run Example (React)",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
-        "--disable-extensions",
-        "${workspaceFolder}/packages/extension/examples/react"
-      ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
-    },
-    {
-      "name": "Run Example (Preact)",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
-        "--disable-extensions",
-        "${workspaceFolder}/packages/extension/examples/preact"
-      ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
-    },
-    {
-      "name": "Run Example (Svelte)",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
-        "--disable-extensions",
-        "${workspaceFolder}/packages/extension/examples/svelte"
-      ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
-    },
-    {
       "name": "Run Example (Vanilla)",
       "type": "extensionHost",
       "request": "launch",
@@ -78,23 +26,9 @@
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
         "--disable-extensions",
-        "${workspaceFolder}/packages/extension/examples/vanilla"
+        "/home/simon/Documents/from-github/pitlet-examples/vanilla"
       ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
-    },
-    {
-      "name": "Run Example (TypeScript)",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
-        "--disable-extensions",
-        "${workspaceFolder}/packages/extension/examples/typescript"
-      ],
-      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
+      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"]
     }
   ]
 }

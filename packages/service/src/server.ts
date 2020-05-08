@@ -32,7 +32,11 @@ export const createDevServer = async ({
   const config = await eval('require')(configPath)
   measureEnd('require config')
   measureStart('bundling')
-  const { transformFunctionMap, alias, entryPath } = config
+  const { transformFunctionMap, alias, entryPath, packageFunctions } = config
+  if (!transformFunctionMap || !packageFunctions) {
+    console.log('invalid config')
+    return
+  }
   const transform = createTransform({ transformFunctionMap })
   const entry = {
     protocol: 'filesystem',
@@ -53,7 +57,12 @@ export const createDevServer = async ({
     entry,
   })
   measureEnd('collect assets')
-  const operations = await packageJs(assets, workspaceFolder, entry.meta.id)
+  const operations = (await Promise.all(
+    // @ts-ignore
+    packageFunctions.map((packageFunction) =>
+      packageFunction(assets, workspaceFolder, entry.meta.id)
+    )
+  ).then((result) => result.flat())) as any[]
 
   measureEnd('bundling')
   measureStart('writing to disk')
@@ -80,7 +89,7 @@ export const createDevServer = async ({
       case 'write':
         fs.writeFileSync(
           `${distFolder}/${operation.destinationPath}`,
-          operation.content,
+          operation.content
         )
         break
       default:
@@ -99,20 +108,20 @@ export const createDevServer = async ({
     // indexHtml.pipe(response, { end: true })
   })
   const webSocketServer = new WebSocket.Server({ server })
-  webSocketServer.on('connection', webSocket => {
+  webSocketServer.on('connection', (webSocket) => {
     console.log('opened websocket')
     webSocket.on('open', () => {})
   })
 
   return {
     listen: (port: number) =>
-      new Promise<void>(resolve => server.listen(port, resolve)),
+      new Promise<void>((resolve) => server.listen(port, resolve)),
     update: async (fileWatcherEvents: readonly FileWatcherEvent[]) => {
       const updates = await getHmrUpdates(
         assets,
         fileWatcherEvents,
         transform,
-        nodeBundler.resolve,
+        nodeBundler.resolve
       )
       if (updates.length > 0) {
         const message = JSON.stringify(updates)

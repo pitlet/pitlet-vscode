@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@pitlet/core": "^1.0.3",
-    "@pitlet/package-js": "^1.0.9",
+    "@pitlet/package-js": "^1.0.11",
     "serve-static": "^1.14.1",
     "ws": "^7.2.3"
   }

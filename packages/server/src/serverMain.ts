@@ -37,6 +37,9 @@ connection.onInitialized(async () => {
   const workspaceFolder = workspaceFolders![0].uri.slice(7)
   console.log(workspaceFolder)
   const devServer = await createDevServer({ workspaceFolder })
+  if (!devServer) {
+    return
+  }
   // @ts-ignore
   await devServer.listen(3000)
   // connection.window.showInformationMessage(
