@@ -153,6 +153,8 @@ export const getHmrUpdates: (
                 id: transformed.meta.id,
               },
             })
+          } else {
+            console.log('same content')
           }
 
           // console.log(JSON.stringify(oldAsset, null, 2))
@@ -237,6 +239,9 @@ export const getHmrUpdates: (
             }
           }
           // for()
+        } else {
+          console.log(oldAssets)
+          console.log('not in assets')
         }
         break
       }

@@ -11,7 +11,8 @@ import {
   handleError,
 } from './errorHandlingAndLogging'
 import { createDevServer } from 'service'
-import { FileWatcherEvent } from 'service/src/updateAssets'
+import type { FileWatcherEvent } from 'service/src/updateAssets'
+
 const connection = createConnection()
 
 enableBetterErrorHandlingAndLogging(connection)

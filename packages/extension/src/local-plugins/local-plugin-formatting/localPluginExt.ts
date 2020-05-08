@@ -3,7 +3,7 @@ import { RequestType } from 'vscode-languageclient'
 import { LocalPlugin } from '../pluginApi'
 import { createLanguageClientProxy } from './createLanguageClientProxy'
 
-export const localPluginFormatting: LocalPlugin = async context => {
+export const localPluginFormatting: LocalPlugin = async (context) => {
   if (!vscode.workspace.workspaceFolders) {
     return
   }
@@ -17,13 +17,13 @@ export const localPluginFormatting: LocalPlugin = async context => {
           scheme: 'file',
         },
       ],
-    },
+    }
   )
 
   const folder = vscode.workspace.workspaceFolders![0]
 
   const watcher = vscode.workspace.createFileSystemWatcher(
-    new vscode.RelativePattern(folder, `src/**/*.*`),
+    new vscode.RelativePattern(folder, `src/**/*.*`)
   )
   context.subscriptions.push(watcher)
   console.log('created watcher')

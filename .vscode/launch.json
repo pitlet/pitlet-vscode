@@ -29,6 +29,18 @@
         "/home/simon/Documents/from-github/pitlet-examples/vanilla"
       ],
       "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"]
+    },
+    {
+      "name": "Run Example (Electron)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension",
+        "--disable-extensions",
+        "/home/simon/Documents/from-github/pitlet-examples/electron/packages/renderer-process"
+      ],
+      "outFiles": ["${workspaceFolder}/packages/extension/dist/**/*.js"]
     }
   ]
 }
