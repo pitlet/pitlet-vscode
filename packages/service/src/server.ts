@@ -124,10 +124,13 @@ export const createDevServer = async ({
         nodeBundler.resolve
       )
       if (updates.length > 0) {
+        console.log('SEND UPDATES')
         const message = JSON.stringify(updates)
         for (const webSocket of webSocketServer.clients) {
           webSocket.send(message)
         }
+      } else {
+        console.log('NO UPDATES')
       }
     },
   }
