@@ -30,6 +30,21 @@ const getType = (id: string) => {
   if (id.endsWith('.vue')) {
     return 'vue'
   }
+  if (id.endsWith('.css')) {
+    return 'css'
+  }
+  if (id.endsWith('.sass')) {
+    return 'sass'
+  }
+  if (id.endsWith('.scss')) {
+    return 'scss'
+  }
+  if (id.endsWith('.ts')) {
+    return 'ts'
+  }
+  if (id.endsWith('.html')) {
+    return 'html'
+  }
 }
 
 connection.onInitialized(async () => {
