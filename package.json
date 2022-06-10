@@ -18,7 +18,7 @@
     "merge-options": "^2.0.0",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
-    "semantic-release": "^17.0.6",
+    "semantic-release": "^19.0.3",
     "semantic-release-vsce": "^3.0.1",
     "ts-loader": "^7.0.1",
     "typescript": "^3.8.3",
